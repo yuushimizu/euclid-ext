@@ -3,22 +3,22 @@ use std::ops;
 
 type Point<T, U> = euclid::TypedPoint2D<T, U>;
 
-pub trait Point2DRangeIteratorPrimitive:
+pub trait PointRangeIteratorPrimitive:
     Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One
 {
 }
 
 impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One>
-    Point2DRangeIteratorPrimitive for T
+    PointRangeIteratorPrimitive for T
 {
 }
 
-pub struct Point2DRangeIterator<T: Point2DRangeIteratorPrimitive, U> {
+pub struct Point2DRangeIterator<T: PointRangeIteratorPrimitive, U> {
     range: ops::Range<Point<T, U>>,
     current: Point<T, U>,
 }
 
-impl<T: Point2DRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
     pub fn new(range: ops::Range<Point<T, U>>) -> Self {
         let current = range.start;
         Self { range, current }
@@ -36,7 +36,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
 /// assert_eq!(Some(Point2D::new(11, 21)), i.next());
 /// assert_eq!(None, i.next());
 /// ```
-impl<T: Point2DRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U> {
     type Item = Point<T, U>;
 
     fn next(&mut self) -> Option<Self::Item> {

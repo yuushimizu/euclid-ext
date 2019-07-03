@@ -1,4 +1,4 @@
-use crate::point2d_range_iterator::{Point2DRangeIterator, Point2DRangeIteratorPrimitive};
+use crate::point2d_range_iterator::{Point2DRangeIterator, PointRangeIteratorPrimitive};
 use euclid;
 use std::ops;
 
@@ -20,7 +20,7 @@ pub trait Points {
 ///     ],
 ///     rect.points().collect::<Vec<_>>());
 /// ```
-impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedRect<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> Points for euclid::TypedRect<T, U> {
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {
@@ -40,7 +40,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedRect<T, U> {
 ///     ],
 ///     box2d.points().collect::<Vec<_>>());
 /// ```
-impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedBox2D<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> Points for euclid::TypedBox2D<T, U> {
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {
@@ -60,7 +60,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedBox2D<T, U> {
 ///     ],
 ///     range.points().collect::<Vec<_>>());
 /// ```
-impl<T: Point2DRangeIteratorPrimitive, U> Points for ops::Range<euclid::TypedPoint2D<T, U>> {
+impl<T: PointRangeIteratorPrimitive, U> Points for ops::Range<euclid::TypedPoint2D<T, U>> {
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {

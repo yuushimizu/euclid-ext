@@ -5,7 +5,7 @@ pub mod structure;
 
 pub mod prelude {
     pub use crate::map::{Map2D, Map3D};
-    pub use crate::point2d_range_iterator::{Point2DRangeIterator, Point2DRangeIteratorPrimitive};
+    pub use crate::point2d_range_iterator::Point2DRangeIterator;
     pub use crate::points::Points;
     pub use crate::structure::Structure2D;
 }
