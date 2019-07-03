@@ -24,7 +24,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedRect<T, U> {
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {
-        Point2DRangeIterator::new(self.origin, self.origin + self.size)
+        Point2DRangeIterator::new(self.origin..self.origin + self.size)
     }
 }
 
@@ -44,7 +44,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Points for euclid::TypedBox2D<T, U> {
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {
-        Point2DRangeIterator::new(self.min, self.max)
+        Point2DRangeIterator::new(self.min..self.max)
     }
 }
 
@@ -64,6 +64,6 @@ impl<T: Point2DRangeIteratorPrimitive, U> Points for ops::Range<euclid::TypedPoi
     type Iter = Point2DRangeIterator<T, U>;
 
     fn points(self) -> Self::Iter {
-        Point2DRangeIterator::new(self.start, self.end)
+        Point2DRangeIterator::new(self)
     }
 }

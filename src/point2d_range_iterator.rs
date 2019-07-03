@@ -14,18 +14,14 @@ impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One>
 }
 
 pub struct Point2DRangeIterator<T: Point2DRangeIteratorPrimitive, U> {
-    start: Point<T, U>,
-    end: Point<T, U>,
+    range: ops::Range<Point<T, U>>,
     current: Point<T, U>,
 }
 
 impl<T: Point2DRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
-    pub fn new(start: Point<T, U>, end: Point<T, U>) -> Self {
-        Self {
-            start,
-            end,
-            current: start,
-        }
+    pub fn new(range: ops::Range<Point<T, U>>) -> Self {
+        let current = range.start;
+        Self { range, current }
     }
 }
 
@@ -33,7 +29,7 @@ impl<T: Point2DRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
 /// ```
 /// # use euclid::Point2D;
 /// # use euclid_ext::Point2DRangeIterator;
-/// let mut i = Point2DRangeIterator::new(Point2D::new(10, 20), Point2D::new(12, 22));
+/// let mut i = Point2DRangeIterator::new(Point2D::new(10, 20)..Point2D::new(12, 22));
 /// assert_eq!(Some(Point2D::new(10, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(11, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(10, 21)), i.next());
@@ -44,13 +40,13 @@ impl<T: Point2DRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U
     type Item = Point<T, U>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        while self.current.y < self.end.y {
-            if self.current.x < self.end.x {
+        while self.current.y < self.range.end.y {
+            if self.current.x < self.range.end.x {
                 let result = Some(self.current);
                 self.current.x = self.current.x + T::one();
                 return result;
             }
-            self.current = Point::new(self.start.x, self.current.y + T::one());
+            self.current = Point::new(self.range.start.x, self.current.y + T::one());
         }
         None
     }
