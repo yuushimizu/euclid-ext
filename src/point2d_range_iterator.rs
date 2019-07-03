@@ -1,7 +1,6 @@
+use crate::type_alias::{Point2D, Point2DRange};
 use euclid;
 use std::ops;
-
-type Point<T, U> = euclid::TypedPoint2D<T, U>;
 
 pub trait PointRangeIteratorPrimitive:
     Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One
@@ -14,12 +13,12 @@ impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One> PointRan
 }
 
 pub struct Point2DRangeIterator<T: PointRangeIteratorPrimitive, U> {
-    range: ops::Range<Point<T, U>>,
-    current: Point<T, U>,
+    range: Point2DRange<T, U>,
+    current: Point2D<T, U>,
 }
 
 impl<T: PointRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
-    pub fn new(range: ops::Range<Point<T, U>>) -> Self {
+    pub fn new(range: Point2DRange<T, U>) -> Self {
         let current = range.start;
         Self { range, current }
     }
@@ -37,7 +36,7 @@ impl<T: PointRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
 /// assert_eq!(None, i.next());
 /// ```
 impl<T: PointRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U> {
-    type Item = Point<T, U>;
+    type Item = Point2D<T, U>;
 
     fn next(&mut self) -> Option<Self::Item> {
         while self.current.y < self.range.end.y {
@@ -46,7 +45,7 @@ impl<T: PointRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U> 
                 self.current.x = self.current.x + T::one();
                 return result;
             }
-            self.current = Point::new(self.range.start.x, self.current.y + T::one());
+            self.current = Point2D::new(self.range.start.x, self.current.y + T::one());
         }
         None
     }
