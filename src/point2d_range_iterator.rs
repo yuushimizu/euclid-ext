@@ -8,8 +8,8 @@ pub trait PointRangeIteratorPrimitive:
 {
 }
 
-impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One>
-    PointRangeIteratorPrimitive for T
+impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One> PointRangeIteratorPrimitive
+    for T
 {
 }
 
