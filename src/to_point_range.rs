@@ -1,5 +1,4 @@
-use crate::type_alias::{Point2D, Point2DRange, Point3D, Point3DRange};
-use euclid;
+use crate::type_alias::{Box2D, Box3D, Point2D, Point2DRange, Point3D, Point3DRange, Rect, Size2D};
 use std::ops;
 
 pub trait ToPointRange {
@@ -16,18 +15,19 @@ impl<T, U> ToPointRange for Point2DRange<T, U> {
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedRect<T, U>
+impl<T, U> ToPointRange for Rect<T, U>
 where
-    T: Copy + ops::Add<Output = T>,
+    Point2D<T, U>: Clone + ops::Add<Size2D<T, U>, Output = Point2D<T, U>>,
 {
     type Point = Point2D<T, U>;
 
     fn to_point_range(self) -> Point2DRange<T, U> {
-        self.origin..self.origin + self.size
+        let end = self.origin.clone() + self.size;
+        self.origin..end
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedBox2D<T, U> {
+impl<T, U> ToPointRange for Box2D<T, U> {
     type Point = Point2D<T, U>;
 
     fn to_point_range(self) -> Point2DRange<T, U> {
@@ -43,7 +43,7 @@ impl<T, U> ToPointRange for Point3DRange<T, U> {
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedBox3D<T, U> {
+impl<T, U> ToPointRange for Box3D<T, U> {
     type Point = Point3D<T, U>;
 
     fn to_point_range(self) -> Point3DRange<T, U> {

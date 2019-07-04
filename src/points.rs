@@ -1,5 +1,5 @@
 use crate::point2d_range_iterator::{Point2DRangeIterator, PointRangeIteratorPrimitive};
-use euclid;
+use crate::type_alias::Point2D;
 
 pub trait Points {
     type Iter: Iterator;
@@ -47,11 +47,8 @@ pub trait Points {
 ///     ],
 ///     range.points().collect::<Vec<_>>());
 /// ```
-impl<
-        T: PointRangeIteratorPrimitive,
-        U,
-        R: crate::ToPointRange<Point = euclid::TypedPoint2D<T, U>>,
-    > Points for R
+impl<T: PointRangeIteratorPrimitive, U, R: crate::ToPointRange<Point = Point2D<T, U>>> Points
+    for R
 {
     type Iter = Point2DRangeIterator<T, U>;
 
