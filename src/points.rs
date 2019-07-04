@@ -1,5 +1,5 @@
-use crate::point_range_iterator::{PointRangeIterator, PointRangeIteratorPrimitive};
-use crate::type_alias::Point2D;
+use crate::point_range_iterator::{PointRangeIterator, PointRangeIteratorItem};
+use crate::to_point_range::ToPointRange;
 
 pub trait Points {
     type Iter: Iterator;
@@ -47,10 +47,10 @@ pub trait Points {
 ///     ],
 ///     range.points().collect::<Vec<_>>());
 /// ```
-impl<T: PointRangeIteratorPrimitive, U, R: crate::ToPointRange<Point = Point2D<T, U>>> Points
-    for R
+impl<T: ToPointRange> Points
+    for T where T::Point: PointRangeIteratorItem
 {
-    type Iter = PointRangeIterator<Point2D<T, U>>;
+    type Iter = PointRangeIterator<T::Point>;
 
     fn points(self) -> Self::Iter {
         PointRangeIterator::new(self.to_point_range())

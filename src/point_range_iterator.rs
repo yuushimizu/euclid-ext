@@ -1,4 +1,4 @@
-use crate::type_alias::Point2D;
+use crate::type_alias::{Point2D, Point3D};
 use euclid;
 use std::ops;
 
@@ -12,17 +12,50 @@ impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One> PointRan
 {
 }
 
-pub struct PointRangeIterator<T> {
+pub trait PointRangeIteratorItem: Copy + Sized {
+    fn next(&mut self, range: &ops::Range<Self>) -> Option<Self>;
+}
+
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point2D<T, U> {
+    fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
+        while self.y < range.end.y {
+            if self.x < range.end.x {
+                let result = Some(*self);
+                self.x = self.x + T::one();
+                return result;
+            }
+            *self = Self::new(range.start.x, self.y + T::one());
+        }
+        None
+    }
+}
+
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point3D<T, U> {
+    fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
+        while self.z < range.end.z {
+            while self.y < range.end.y {
+                if self.x < range.end.x {
+                    let result = Some(*self);
+                    self.x = self.x + T::one();
+                    return result;
+                }
+                *self = Self::new(range.start.x, self.y + T::one(), self.z);
+            }
+            *self = Self::new(range.start.x, range.start.y, self.z + T::one());
+        }
+
+        None
+    }
+}
+
+pub struct PointRangeIterator<T: PointRangeIteratorItem> {
     range: ops::Range<T>,
     current: T,
 }
 
-impl<T> PointRangeIterator<T> {
-    pub fn new(range: ops::Range<T>) -> Self
-    where
-        T: Clone,
-    {
-        let current = range.start.clone();
+impl<T: PointRangeIteratorItem> PointRangeIterator<T> {
+    pub fn new(range: ops::Range<T>) -> Self {
+        let current = range.start;
         Self { range, current }
     }
 }
@@ -38,18 +71,10 @@ impl<T> PointRangeIterator<T> {
 /// assert_eq!(Some(Point2D::new(11, 21)), i.next());
 /// assert_eq!(None, i.next());
 /// ```
-impl<T: PointRangeIteratorPrimitive, U> Iterator for PointRangeIterator<Point2D<T, U>> {
-    type Item = Point2D<T, U>;
+impl<T: PointRangeIteratorItem> Iterator for PointRangeIterator<T> {
+    type Item = T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        while self.current.y < self.range.end.y {
-            if self.current.x < self.range.end.x {
-                let result = Some(self.current);
-                self.current.x = self.current.x + T::one();
-                return result;
-            }
-            self.current = Point2D::new(self.range.start.x, self.current.y + T::one());
-        }
-        None
+        self.current.next(&self.range)
     }
 }
