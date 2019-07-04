@@ -1,4 +1,4 @@
-use crate::type_alias::{Point2D, Point2DRange};
+use crate::type_alias::Point2D;
 use euclid;
 use std::ops;
 
@@ -12,14 +12,17 @@ impl<T: Copy + PartialOrd + ops::Add<Output = Self> + euclid::num::One> PointRan
 {
 }
 
-pub struct Point2DRangeIterator<T: PointRangeIteratorPrimitive, U> {
-    range: Point2DRange<T, U>,
-    current: Point2D<T, U>,
+pub struct PointRangeIterator<T> {
+    range: ops::Range<T>,
+    current: T,
 }
 
-impl<T: PointRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
-    pub fn new(range: Point2DRange<T, U>) -> Self {
-        let current = range.start;
+impl<T> PointRangeIterator<T> {
+    pub fn new(range: ops::Range<T>) -> Self
+    where
+        T: Clone,
+    {
+        let current = range.start.clone();
         Self { range, current }
     }
 }
@@ -27,15 +30,15 @@ impl<T: PointRangeIteratorPrimitive, U> Point2DRangeIterator<T, U> {
 /// # Examples
 /// ```
 /// # use euclid::Point2D;
-/// # use euclid_ext::Point2DRangeIterator;
-/// let mut i = Point2DRangeIterator::new(Point2D::new(10, 20)..Point2D::new(12, 22));
+/// # use euclid_ext::PointRangeIterator;
+/// let mut i = PointRangeIterator::new(Point2D::new(10, 20)..Point2D::new(12, 22));
 /// assert_eq!(Some(Point2D::new(10, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(11, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(10, 21)), i.next());
 /// assert_eq!(Some(Point2D::new(11, 21)), i.next());
 /// assert_eq!(None, i.next());
 /// ```
-impl<T: PointRangeIteratorPrimitive, U> Iterator for Point2DRangeIterator<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> Iterator for PointRangeIterator<Point2D<T, U>> {
     type Item = Point2D<T, U>;
 
     fn next(&mut self) -> Option<Self::Item> {

@@ -1,4 +1,4 @@
-use crate::point2d_range_iterator::{Point2DRangeIterator, PointRangeIteratorPrimitive};
+use crate::point_range_iterator::{PointRangeIterator, PointRangeIteratorPrimitive};
 use crate::type_alias::Point2D;
 
 pub trait Points {
@@ -50,9 +50,9 @@ pub trait Points {
 impl<T: PointRangeIteratorPrimitive, U, R: crate::ToPointRange<Point = Point2D<T, U>>> Points
     for R
 {
-    type Iter = Point2DRangeIterator<T, U>;
+    type Iter = PointRangeIterator<Point2D<T, U>>;
 
     fn points(self) -> Self::Iter {
-        Point2DRangeIterator::new(self.to_point_range())
+        PointRangeIterator::new(self.to_point_range())
     }
 }
