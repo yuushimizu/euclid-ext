@@ -63,7 +63,7 @@ impl<T: PointRangeIteratorItem> PointRangeIterator<T> {
 /// # Examples
 /// ```
 /// # use euclid::Point2D;
-/// # use euclid_ext::PointRangeIterator;
+/// # use euclid_ext::point_range_iterator::PointRangeIterator;
 /// let mut i = PointRangeIterator::new(Point2D::new(10, 20)..Point2D::new(12, 22));
 /// assert_eq!(Some(Point2D::new(10, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(11, 20)), i.next());
