@@ -1,4 +1,3 @@
-use euclid;
 use std::ops;
 
 pub trait PointRangeIteratorPrimitive:

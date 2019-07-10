@@ -1,5 +1,3 @@
-use euclid::Length;
-
 pub trait Structure2D {
     type Item;
 
@@ -11,7 +9,7 @@ pub trait Structure2D {
 }
 
 impl<T: Copy, U> Structure2D for euclid::TypedPoint2D<T, U> {
-    type Item = Length<T, U>;
+    type Item = euclid::Length<T, U>;
 
     fn from_x_y(x: Self::Item, y: Self::Item) -> Self {
         Self::from_lengths(x, y)
@@ -27,7 +25,7 @@ impl<T: Copy, U> Structure2D for euclid::TypedPoint2D<T, U> {
 }
 
 impl<T: Copy, U> Structure2D for euclid::TypedSize2D<T, U> {
-    type Item = Length<T, U>;
+    type Item = euclid::Length<T, U>;
 
     fn from_x_y(x: Self::Item, y: Self::Item) -> Self {
         Self::from_lengths(x, y)
@@ -43,7 +41,7 @@ impl<T: Copy, U> Structure2D for euclid::TypedSize2D<T, U> {
 }
 
 impl<T: Copy, U> Structure2D for euclid::TypedVector2D<T, U> {
-    type Item = Length<T, U>;
+    type Item = euclid::Length<T, U>;
 
     fn from_x_y(x: Self::Item, y: Self::Item) -> Self {
         Self::from_lengths(x, y)
@@ -59,7 +57,7 @@ impl<T: Copy, U> Structure2D for euclid::TypedVector2D<T, U> {
 }
 
 impl<T: Copy, U> Structure2D for euclid::TypedBox2D<T, U> {
-    type Item = (Length<T, U>, Length<T, U>);
+    type Item = (euclid::Length<T, U>, euclid::Length<T, U>);
 
     fn from_x_y(x: Self::Item, y: Self::Item) -> Self {
         Self::new(
@@ -78,7 +76,7 @@ impl<T: Copy, U> Structure2D for euclid::TypedBox2D<T, U> {
 }
 
 impl<T: Copy, U> Structure2D for euclid::TypedRect<T, U> {
-    type Item = (Length<T, U>, Length<T, U>);
+    type Item = (euclid::Length<T, U>, euclid::Length<T, U>);
 
     fn from_x_y(x: Self::Item, y: Self::Item) -> Self {
         Self::new(
@@ -109,7 +107,7 @@ pub trait Structure3D {
 }
 
 impl<T: Copy, U> Structure3D for euclid::TypedPoint3D<T, U> {
-    type Item = Length<T, U>;
+    type Item = euclid::Length<T, U>;
 
     fn from_x_y_z(x: Self::Item, y: Self::Item, z: Self::Item) -> Self {
         Self::from_lengths(x, y, z)
@@ -129,7 +127,7 @@ impl<T: Copy, U> Structure3D for euclid::TypedPoint3D<T, U> {
 }
 
 impl<T: Copy, U> Structure3D for euclid::TypedVector3D<T, U> {
-    type Item = Length<T, U>;
+    type Item = euclid::Length<T, U>;
 
     fn from_x_y_z(x: Self::Item, y: Self::Item, z: Self::Item) -> Self {
         Self::from_lengths(x, y, z)
@@ -149,7 +147,7 @@ impl<T: Copy, U> Structure3D for euclid::TypedVector3D<T, U> {
 }
 
 impl<T: Copy, U> Structure3D for euclid::TypedBox3D<T, U> {
-    type Item = (Length<T, U>, Length<T, U>);
+    type Item = (euclid::Length<T, U>, euclid::Length<T, U>);
 
     fn from_x_y_z(x: Self::Item, y: Self::Item, z: Self::Item) -> Self {
         Self::new(
