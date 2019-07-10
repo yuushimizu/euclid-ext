@@ -48,7 +48,7 @@ impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point3D<T, U>
     }
 }
 
-#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct PointRangeIterator<T: PointRangeIteratorItem> {
     range: ops::Range<T>,
     current: T,
