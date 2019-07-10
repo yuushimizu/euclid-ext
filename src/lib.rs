@@ -3,7 +3,6 @@ pub mod point_range_iterator;
 pub mod points;
 pub mod structure;
 pub mod to_point_range;
-mod type_alias;
 
 pub use crate::map::{Map2D, Map3D};
 pub use crate::points::Points;

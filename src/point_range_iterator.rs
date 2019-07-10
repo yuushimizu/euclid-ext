@@ -1,4 +1,3 @@
-use crate::type_alias::{Point2D, Point3D};
 use euclid;
 use std::ops;
 
@@ -16,7 +15,7 @@ pub trait PointRangeIteratorItem: Copy + Sized {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self>;
 }
 
-impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point2D<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::TypedPoint2D<T, U> {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
         while self.y < range.end.y {
             if self.x < range.end.x {
@@ -30,7 +29,7 @@ impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point2D<T, U>
     }
 }
 
-impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for Point3D<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::TypedPoint3D<T, U> {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
         while self.z < range.end.z {
             while self.y < range.end.y {
