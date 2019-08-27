@@ -6,20 +6,20 @@ pub trait ToPointRange {
     fn to_point_range(self) -> ops::Range<Self::Point>;
 }
 
-impl<T, U> ToPointRange for ops::Range<euclid::TypedPoint2D<T, U>> {
-    type Point = euclid::TypedPoint2D<T, U>;
+impl<T, U> ToPointRange for ops::Range<euclid::Point2D<T, U>> {
+    type Point = euclid::Point2D<T, U>;
 
     fn to_point_range(self) -> Self {
         self
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedRect<T, U>
+impl<T, U> ToPointRange for euclid::Rect<T, U>
 where
-    euclid::TypedPoint2D<T, U>:
-        Clone + ops::Add<euclid::TypedSize2D<T, U>, Output = euclid::TypedPoint2D<T, U>>,
+    euclid::Point2D<T, U>:
+        Clone + ops::Add<euclid::Size2D<T, U>, Output = euclid::Point2D<T, U>>,
 {
-    type Point = euclid::TypedPoint2D<T, U>;
+    type Point = euclid::Point2D<T, U>;
 
     fn to_point_range(self) -> ops::Range<Self::Point> {
         let end = self.origin.clone() + self.size;
@@ -27,24 +27,24 @@ where
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedBox2D<T, U> {
-    type Point = euclid::TypedPoint2D<T, U>;
+impl<T, U> ToPointRange for euclid::Box2D<T, U> {
+    type Point = euclid::Point2D<T, U>;
 
     fn to_point_range(self) -> ops::Range<Self::Point> {
         self.min..self.max
     }
 }
 
-impl<T, U> ToPointRange for ops::Range<euclid::TypedPoint3D<T, U>> {
-    type Point = euclid::TypedPoint3D<T, U>;
+impl<T, U> ToPointRange for ops::Range<euclid::Point3D<T, U>> {
+    type Point = euclid::Point3D<T, U>;
 
     fn to_point_range(self) -> Self {
         self
     }
 }
 
-impl<T, U> ToPointRange for euclid::TypedBox3D<T, U> {
-    type Point = euclid::TypedPoint3D<T, U>;
+impl<T, U> ToPointRange for euclid::Box3D<T, U> {
+    type Point = euclid::Point3D<T, U>;
 
     fn to_point_range(self) -> ops::Range<Self::Point> {
         self.min..self.max

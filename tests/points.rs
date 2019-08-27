@@ -1,11 +1,11 @@
-use euclid::{TypedBox2D, TypedBox3D, TypedPoint2D, TypedPoint3D, TypedRect, TypedSize2D};
+use euclid::{Box2D, Box3D, Rect, Size2D};
 use euclid_ext::Points;
 
 enum Space {}
 
-type Point2D<T> = TypedPoint2D<T, Space>;
+type Point2D<T> = euclid::Point2D<T, Space>;
 
-type Point3D<T> = TypedPoint3D<T, Space>;
+type Point3D<T> = euclid::Point3D<T, Space>;
 
 macro_rules! point_vec {
     ($(($x:expr, $y:expr, $z:expr)),*) => {
@@ -30,7 +30,7 @@ fn points_in_range_2d() {
 fn points_in_box2d() {
     assert_eq!(
         point_vec![(5, 10), (6, 10), (7, 10), (5, 11), (6, 11), (7, 11)],
-        TypedBox2D::new(Point2D::new(5, 10), Point2D::new(8, 12))
+        Box2D::new(Point2D::new(5, 10), Point2D::new(8, 12))
             .points()
             .collect::<Vec<_>>()
     );
@@ -53,7 +53,7 @@ fn points_in_rect() {
             (12, 15),
             (13, 15)
         ],
-        TypedRect::new(Point2D::new(10, 13), TypedSize2D::new(4, 3))
+        Rect::new(Point2D::new(10, 13), Size2D::new(4, 3))
             .points()
             .collect::<Vec<_>>()
     );
@@ -123,7 +123,7 @@ fn points_in_box3d() {
             (2, 13, 23),
             (3, 13, 23)
         ],
-        TypedBox3D::new(Point3D::new(0, 11, 22), Point3D::new(4, 14, 24))
+        Box3D::new(Point3D::new(0, 11, 22), Point3D::new(4, 14, 24))
             .points()
             .collect::<Vec<_>>()
     );

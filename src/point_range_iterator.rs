@@ -14,7 +14,7 @@ pub trait PointRangeIteratorItem: Copy + Sized {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self>;
 }
 
-impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::TypedPoint2D<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::Point2D<T, U> {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
         while self.y < range.end.y {
             if self.x < range.end.x {
@@ -28,7 +28,7 @@ impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::Typed
     }
 }
 
-impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::TypedPoint3D<T, U> {
+impl<T: PointRangeIteratorPrimitive, U> PointRangeIteratorItem for euclid::Point3D<T, U> {
     fn next(&mut self, range: &ops::Range<Self>) -> Option<Self> {
         while self.z < range.end.z {
             while self.y < range.end.y {
@@ -63,7 +63,8 @@ impl<T: PointRangeIteratorItem> PointRangeIterator<T> {
 /// ```
 /// # use euclid::Point2D;
 /// # use euclid_ext::point_range_iterator::PointRangeIterator;
-/// let mut i = PointRangeIterator::new(Point2D::new(10, 20)..Point2D::new(12, 22));
+/// enum Space {}
+/// let mut i = PointRangeIterator::new(Point2D::<i64, Space>::new(10, 20)..Point2D::<i64, Space>::new(12, 22));
 /// assert_eq!(Some(Point2D::new(10, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(11, 20)), i.next());
 /// assert_eq!(Some(Point2D::new(10, 21)), i.next());

@@ -10,9 +10,10 @@ pub trait Map2D {
 /// ```
 /// # use euclid::Point2D;
 /// # use euclid_ext::Map2D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point2D::new(4, 6),
-///     Point2D::new(2, 3).map(|n| n * 2));
+///     Point2D::<i64, Space>::new(2, 3).map(|n| n * 2));
 /// ```
 impl<T: Structure2D> Map2D for T {
     type Item = <Self as Structure2D>::Item;
@@ -26,9 +27,10 @@ impl<T: Structure2D> Map2D for T {
 /// ```
 /// # use euclid::Point2D;
 /// # use euclid_ext::Map2D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point2D::new(4, 6),
-///     (Point2D::new(2, 3),).map(|(n,)| n * 2));
+///     (Point2D::<i64, Space>::new(2, 3),).map(|(n,)| n * 2));
 /// ```
 impl<T: Structure2D> Map2D for (T,) {
     type Item = (<T as Structure2D>::Item,);
@@ -42,9 +44,10 @@ impl<T: Structure2D> Map2D for (T,) {
 /// ```
 /// # use euclid::{Point2D, Vector2D};
 /// # use euclid_ext::Map2D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point2D::new(5, 12),
-///     (Point2D::new(5, 8), Vector2D::new(2, 12)).map(|(n, m)| n.max(m)));
+///     (Point2D::<i64, Space>::new(5, 8), Vector2D::<i64, Space>::new(2, 12)).map(|(n, m)| n.max(m)));
 /// ```
 impl<T0: Structure2D, T1: Structure2D> Map2D for (T0, T1) {
     type Item = (<T0 as Structure2D>::Item, <T1 as Structure2D>::Item);
@@ -58,9 +61,10 @@ impl<T0: Structure2D, T1: Structure2D> Map2D for (T0, T1) {
 /// ```
 /// # use euclid::{Point2D, Vector2D};
 /// # use euclid_ext::Map2D;
+/// enum Space {}
 /// assert_eq!(
 ///     Vector2D::new(111, 222),
-///     (Point2D::new(1, 2), Point2D::new(10, 20), Point2D::new(100, 200)).map(|(a, b, c)| a + b + c));
+///     (Point2D::<i64, Space>::new(1, 2), Point2D::<i64, Space>::new(10, 20), Point2D::<i64, Space>::new(100, 200)).map(|(a, b, c)| a + b + c));
 /// ```
 impl<T0: Structure2D, T1: Structure2D, T2: Structure2D> Map2D for (T0, T1, T2) {
     type Item = (
@@ -87,9 +91,10 @@ pub trait Map3D {
 /// ```
 /// # use euclid::Point3D;
 /// # use euclid_ext::Map3D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point3D::new(4, 6, 10),
-///     Point3D::new(2, 3, 5).map(|n| n * 2));
+///     Point3D::<i64, Space>::new(2, 3, 5).map(|n| n * 2));
 /// ```
 impl<T: Structure3D> Map3D for T {
     type Item = <Self as Structure3D>::Item;
@@ -103,9 +108,10 @@ impl<T: Structure3D> Map3D for T {
 /// ```
 /// # use euclid::Point3D;
 /// # use euclid_ext::Map3D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point3D::new(4, 6, 10),
-///     (Point3D::new(2, 3, 5),).map(|(n,)| n * 2));
+///     (Point3D::<i64, Space>::new(2, 3, 5),).map(|(n,)| n * 2));
 /// ```
 impl<T: Structure3D> Map3D for (T,) {
     type Item = (<T as Structure3D>::Item,);
@@ -120,9 +126,10 @@ impl<T: Structure3D> Map3D for (T,) {
 /// # use euclid::Point3D;
 /// # use euclid::Vector3D;
 /// # use euclid_ext::Map3D;
+/// enum Space {}
 /// assert_eq!(
 ///     Point3D::new(5, 12, 7),
-///     (Point3D::new(5, 8, 2), Vector3D::new(2, 12, 7)).map(|(n, m)| n.max(m)));
+///     (Point3D::<i64, Space>::new(5, 8, 2), Vector3D::<i64, Space>::new(2, 12, 7)).map(|(n, m)| n.max(m)));
 /// ```
 impl<T0: Structure3D, T1: Structure3D> Map3D for (T0, T1) {
     type Item = (<T0 as Structure3D>::Item, <T1 as Structure3D>::Item);
@@ -140,9 +147,10 @@ impl<T0: Structure3D, T1: Structure3D> Map3D for (T0, T1) {
 /// ```
 /// # use euclid::{Point3D, Vector3D};
 /// # use euclid_ext::Map3D;
+/// enum Space {}
 /// assert_eq!(
 ///     Vector3D::new(111, 222, 333),
-///     (Point3D::new(1, 2, 3), Point3D::new(10, 20, 30), Point3D::new(100, 200, 300)).map(|(a, b, c)| a + b + c));
+///     (Point3D::<i64, Space>::new(1, 2, 3), Point3D::<i64, Space>::new(10, 20, 30), Point3D::<i64, Space>::new(100, 200, 300)).map(|(a, b, c)| a + b + c));
 /// ```
 impl<T0: Structure3D, T1: Structure3D, T2: Structure3D> Map3D for (T0, T1, T2) {
     type Item = (

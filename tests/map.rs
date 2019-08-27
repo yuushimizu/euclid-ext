@@ -1,26 +1,23 @@
-use euclid::{
-    Length, TypedBox2D, TypedBox3D, TypedPoint2D, TypedPoint3D, TypedRect, TypedSize2D,
-    TypedVector2D, TypedVector3D,
-};
+use euclid::Length;
 use euclid_ext::{Map2D, Map3D};
 
 enum Space {}
 
-type Point2D<T> = TypedPoint2D<T, Space>;
+type Point2D<T> = euclid::Point2D<T, Space>;
 
-type Size2D<T> = TypedSize2D<T, Space>;
+type Size2D<T> = euclid::Size2D<T, Space>;
 
-type Vector2D<T> = TypedVector2D<T, Space>;
+type Vector2D<T> = euclid::Vector2D<T, Space>;
 
-type Box2D<T> = TypedBox2D<T, Space>;
+type Box2D<T> = euclid::Box2D<T, Space>;
 
-type Rect<T> = TypedRect<T, Space>;
+type Rect<T> = euclid::Rect<T, Space>;
 
-type Point3D<T> = TypedPoint3D<T, Space>;
+type Point3D<T> = euclid::Point3D<T, Space>;
 
-type Vector3D<T> = TypedVector3D<T, Space>;
+type Vector3D<T> = euclid::Vector3D<T, Space>;
 
-type Box3D<T> = TypedBox3D<T, Space>;
+type Box3D<T> = euclid::Box3D<T, Space>;
 
 #[test]
 fn map_point2d() {

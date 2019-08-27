@@ -5,7 +5,8 @@ use crate::to_point_range::ToPointRange;
 /// ```
 /// # use euclid::Point2D;
 /// # use euclid_ext::Points;
-/// let range = Point2D::new(10, 20)..Point2D::new(13, 22);
+/// enum Space {}
+/// let range = Point2D::<i64, Space>::new(10, 20)..Point2D::<i64, Space>::new(13, 22);
 /// assert_eq!(
 ///     vec![
 ///         Point2D::new(10, 20), Point2D::new(11, 20), Point2D::new(12, 20),
